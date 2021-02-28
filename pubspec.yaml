@@ -31,6 +31,7 @@ dependencies:
  
   bloc_pattern: ^2.3.2
   mask_text_input_formatter: ^1.2.1
+  flutter_launcher_icons: ^0.8.1
   math_expressions: ^2.0.2
   rxdart: ^0.25.0
   intl: ^0.15.7
@@ -58,6 +59,7 @@ flutter:
     - imagens/calculadora.png
     - imagens/logoRegra.png
     - imagens/balanca.png
+    - imagens/iconinicial.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -88,3 +90,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "imagens/iconinicial.png"
