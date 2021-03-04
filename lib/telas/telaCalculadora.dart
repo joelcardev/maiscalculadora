@@ -19,40 +19,47 @@ class _telaCalculadoraState extends State<telaCalculadora> {
               icon: Icon(Icons.arrow_back),
               onPressed: () => {
                     // Chame o Navigator aqui para voltar a rota precedente
-                Navigator.pop(context)
+                    Navigator.pop(context)
                   }),
           flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: <Color>[Colors.red,Colors.red],
+                colors: <Color>[Colors.red, Colors.red],
               ),
             ),
           ),
           elevation: 10.0,
           title: Container(
-              margin: EdgeInsets.only(left: 40),
-              child: Text("Calculadora",  style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 28,
-              color: Colors.white)))),
+              margin: EdgeInsets.only(right: 30),
+              child: Center(
+                  child: Text("Calculadora",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
+                          color: Colors.white))))),
       body: SingleChildScrollView(
           physics: NeverScrollableScrollPhysics(),
-          child:
-
-      Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [ Colors.white, Colors.orangeAccent])),
-        alignment: Alignment.topCenter,
-        child: Column(
-          children: [campo1(), campo2(), tecladoCalc()],
-        ),
-      )),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [Colors.white, Colors.orangeAccent])),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                campo1(),
+                campo2(),
+                Padding(
+                    padding: EdgeInsets.only(left: 0, right: 0, bottom: 40),
+                    child: tecladoCalc())
+              ],
+            ),
+          )),
     );
   }
 
@@ -61,7 +68,7 @@ class _telaCalculadoraState extends State<telaCalculadora> {
         height: 90,
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.centerRight,
-        margin: EdgeInsets.fromLTRB(30, 20, 25, 0),
+        margin: EdgeInsets.fromLTRB(30, 0, 25, 0),
         child: StreamBuilder<String>(
             stream: bloc.tela1Stream,
             builder: (BuildContext context, AsyncSnapshot snap) {
@@ -83,15 +90,17 @@ class _telaCalculadoraState extends State<telaCalculadora> {
         height: 50,
         alignment: Alignment.centerRight,
         width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.fromLTRB(30, 0, 25, 0),
+        margin: EdgeInsets.fromLTRB(30, 0, 30, 20),
         child: StreamBuilder<String>(
             stream: bloc.tela2Stream,
             builder: (BuildContext context, AsyncSnapshot snap) {
-              return snap.hasError?Text("Error. Verifique o formato da expressão."):Text(snap.hasData ? '${snap.data}' : "",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: bloc.getTamanhoDigitos() < 10 ? 40.0 : 30,
-                      color: Colors.green));
+              return snap.hasError
+                  ? Text("Error. Verifique o formato da expressão.")
+                  : Text(snap.hasData ? '${snap.data}' : "",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: bloc.getTamanhoDigitos() < 10 ? 40.0 : 30,
+                          color: Colors.green));
             }));
   }
 
@@ -105,44 +114,39 @@ class _telaCalculadoraState extends State<telaCalculadora> {
   }
 
   Widget tecladoCalc() {
-    return Container(
-
-        height: 400,
-        alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.fromLTRB(0, 80, 0, 0),
+    return Center(
         child: Column(children: <Widget>[
-          Row(children: <Widget>[
-            icone("(", Colors.red[200]),
-            icone(")", Colors.red[200]),
-            icone("%", Colors.red[200]),
-            icone("/", Colors.red[200])
-          ]),
-          Row(children: <Widget>[
-            icone("7", Colors.redAccent),
-            icone("8", Colors.redAccent),
-            icone("9", Colors.redAccent),
-            icone("+", Colors.red[200])
-          ]),
-          Row(children: <Widget>[
-            icone("4", Colors.redAccent),
-            icone("5", Colors.redAccent),
-            icone("6", Colors.redAccent),
-            icone("-", Colors.red[200])
-          ]),
-          Row(children: <Widget>[
-            icone("1",  Colors.redAccent),
-            icone("2",  Colors.redAccent),
-            icone("3",  Colors.redAccent),
-            icone("x", Colors.red[200])
-          ]),
-          Row(children: <Widget>[
-            icone("0",  Colors.redAccent),
-            icone(".", Colors.redAccent),
-            icone("AC",  Colors.redAccent),
-            iconeIgual("=", Colors.red[200])
-          ])
-        ]));
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        icone("(", Colors.red[200]),
+        icone(")", Colors.red[200]),
+        icone("%", Colors.red[200]),
+        icone("/", Colors.red[200])
+      ]),
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        icone("7", Colors.redAccent),
+        icone("8", Colors.redAccent),
+        icone("9", Colors.redAccent),
+        icone("+", Colors.red[200])
+      ]),
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        icone("4", Colors.redAccent),
+        icone("5", Colors.redAccent),
+        icone("6", Colors.redAccent),
+        icone("-", Colors.red[200])
+      ]),
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        icone("1", Colors.redAccent),
+        icone("2", Colors.redAccent),
+        icone("3", Colors.redAccent),
+        icone("x", Colors.red[200])
+      ]),
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        icone("0", Colors.redAccent),
+        icone(".", Colors.redAccent),
+        icone("AC", Colors.redAccent),
+        iconeIgual("=", Colors.red[200])
+      ])
+    ]));
   }
 
   Widget iconeIgual(String bt, Color cor) {
@@ -150,8 +154,8 @@ class _telaCalculadoraState extends State<telaCalculadora> {
         child: Center(
             child: Container(
                 margin: EdgeInsets.fromLTRB(9, 3, 5, 0),
-                width: 75.0,
-                height: 75.0,
+                width: 77.0,
+                height: 77.0,
                 child: PhysicalModel(
                   color: cor,
                   shape: BoxShape.circle,
@@ -180,8 +184,8 @@ class _telaCalculadoraState extends State<telaCalculadora> {
         child: Center(
             child: Container(
                 margin: EdgeInsets.fromLTRB(9, 3, 5, 0),
-                width: 75.0,
-                height: 75.0,
+                width: 77.0,
+                height: 77.0,
                 child: PhysicalModel(
                   color: cor,
                   shape: BoxShape.circle,

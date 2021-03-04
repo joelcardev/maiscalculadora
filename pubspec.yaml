@@ -31,7 +31,10 @@ dependencies:
  
   bloc_pattern: ^2.3.2
   mask_text_input_formatter: ^1.2.1
+  responsive_framework: ^0.0.14
   flutter_launcher_icons: ^0.8.1
+
+
   math_expressions: ^2.0.2
   rxdart: ^0.25.0
   intl: ^0.15.7

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.maiscalculadora">
    <application
-        android:label="+ calc"
+        android:label="+calculadora"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

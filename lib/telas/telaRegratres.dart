@@ -16,6 +16,15 @@ class _telaRegratresState extends State<telaRegratres> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            actions: [
+              IconButton(
+                  padding: EdgeInsets.only(right: 10),
+                  icon: Icon(Icons.info_outline), tooltip: 'Como usar', onPressed: (){
+                showAlertDialog1(context);
+
+
+              })
+            ],
           leading: IconButton(
               color: Colors.white,
               icon: Icon(Icons.arrow_back),
@@ -35,10 +44,12 @@ class _telaRegratresState extends State<telaRegratres> {
           elevation: 10.0,
         ),
         body: SingleChildScrollView(
+
           physics: NeverScrollableScrollPhysics(),
           child: Center(
             child: Container(
                 height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topRight,
@@ -167,7 +178,7 @@ class _telaRegratresState extends State<telaRegratres> {
                                           child: Text(bloc.mensagemValidar,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 15.0,
+                                                  fontSize: 14.0,
                                                   color: Colors.redAccent))),
                                     ],
                                   );
@@ -240,8 +251,39 @@ class _telaRegratresState extends State<telaRegratres> {
       alignment: Alignment.center,
       child: Image.asset("imagens/logoRegra.png"),
       width: 350,
-      height: 200,
+      height: 175,
     ));
+  }
+
+
+
+
+
+  showAlertDialog1(BuildContext context)
+  {
+    // configura o button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop();
+
+      },
+    );
+    // configura o  AlertDialog
+    AlertDialog alerta = AlertDialog(
+      title: Text("O que é regra de Três?", textAlign:TextAlign.center,),
+      content: Text("Regra de três simples é um processo prático para resolver problemas que envolvam quatro valores dos quais conhecemos três deles.\nDevemos, portanto, determinar um valor a partir dos três já conhecidos.", textAlign: TextAlign.start,),
+      actions: [
+        okButton,
+      ],
+    );
+    // exibe o dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
   }
 
   void dispose() {

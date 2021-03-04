@@ -2,7 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 
 import 'dart:async';
 
-import 'package:math_expressions/math_expressions.dart';
+
 
 class blocRegra extends BlocBase {
   int contador = 0;
@@ -67,6 +67,8 @@ class blocRegra extends BlocBase {
 
   ///Metedo para calcular valores proporcionais ou inversamente proporcionais.
   void calcular() {
+
+    ///Esse if analisa o IsInver que é a variavel que diz se o usuario apertou o botao de inveter a proporção.
     if (isInver == false) {
       if (y > 0 && x2 > 0 && y2 > 0) {
         x = (y * x2) / y2;
@@ -80,7 +82,7 @@ class blocRegra extends BlocBase {
         y = (x * y2) / x2;
         resultado["resultado"] = {
           "title": "y",
-          "result": y.toStringAsPrecision(2).toString()
+          "result": y.toStringAsPrecision(3).toString()
         };
 
         _blocController1.sink.add(resultado["resultado"]);
@@ -89,7 +91,7 @@ class blocRegra extends BlocBase {
 
         resultado["resultado"] = {
           "title": "X",
-          "result": x2.toStringAsPrecision(2).toString()
+          "result": x2.toStringAsPrecision(3).toString()
         };
         _blocController1.sink.add(resultado["resultado"]);
       } else if (x2 > 0 && y > 0 && x > 0) {
@@ -97,7 +99,7 @@ class blocRegra extends BlocBase {
 
         resultado["resultado"] = {
           "title": "Y",
-          "result": y2.toStringAsPrecision(2).toString()
+          "result": y2.toStringAsPrecision(3).toString()
         };
         _blocController1.sink.add(resultado["resultado"]);
       }
@@ -106,7 +108,7 @@ class blocRegra extends BlocBase {
         x = (y * y2) / x2;
         resultado["resultado"] = {
           "title": "x",
-          "result": x.toStringAsPrecision(2).toString()
+          "result": x.toStringAsPrecision(3).toString()
         };
 
         _blocController1.sink.add(resultado["resultado"]);
@@ -124,7 +126,7 @@ class blocRegra extends BlocBase {
         x2 = (y * y2) / x;
         resultado["resultado"] = {
           "title": "X",
-          "result": x2.toStringAsPrecision(2).toString()
+          "result": x2.toStringAsPrecision(3).toString()
         };
         _blocController1.sink.add(resultado["resultado"]);
         print(x2);
@@ -132,7 +134,7 @@ class blocRegra extends BlocBase {
         y2 = (x * x2) / y;
         resultado["resultado"] = {
           "title": "Y",
-          "result": y2.toStringAsPrecision(2).toString()
+          "result": y2.toStringAsPrecision(3).toString()
         };
         _blocController1.sink.add(resultado["resultado"]);
         print(y2);
@@ -166,7 +168,7 @@ class blocRegra extends BlocBase {
   Stream<String> get escolharStream => _blocController2.stream;
 
   ///forma que achei para fazer a validação,
-  /// porque o stream faz atualização imediata de uma ação,
+  /// porque o streamBuilder faz atualização imediata de uma ação,
   /// servindo assim para atualizar a validação depois de uma ação.
   final _blocValidar = StreamController<int>();
   Stream<int> get validarStream => _blocValidar.stream;

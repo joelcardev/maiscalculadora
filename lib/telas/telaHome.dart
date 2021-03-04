@@ -3,6 +3,7 @@ import 'package:maiscalculadora/telas/telaCalculadora.dart';
 import 'package:maiscalculadora/telas/telaImc.dart';
 import 'package:maiscalculadora/telas/telaRegratres.dart';
 
+
 class telaHome extends StatefulWidget {
   @override
   _telaHomeState createState() => _telaHomeState();
@@ -80,9 +81,10 @@ class _telaHomeState extends State<telaHome> {
             ),
           ))),
       body: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics:NeverScrollableScrollPhysics(),///FUNÇÃO QUE IMPEDE DE MEXER PARA BAIXO A TELA.
           child: Container(
             height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topRight,
@@ -99,4 +101,6 @@ class _telaHomeState extends State<telaHome> {
           )),
     );
   }
+
+  
 }

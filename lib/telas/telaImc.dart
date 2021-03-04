@@ -9,7 +9,9 @@ class telaImc extends StatefulWidget {
 }
 
 class _telaImcState extends State<telaImc> {
-  final _formKey = GlobalKey<FormState>();///formkey que controla os campos da tela imc, ele pega e valida seus valores.
+  final _formKey = GlobalKey<FormState>();
+
+  ///formkey que controla os campos da tela imc, ele pega e valida seus valores.
   blocImc bloc = new blocImc();
 
   @override
@@ -37,26 +39,26 @@ class _telaImcState extends State<telaImc> {
       body: SingleChildScrollView(
           physics: NeverScrollableScrollPhysics(),
           child: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [Colors.white, Colors.orangeAccent])),
-        alignment: Alignment.topCenter,
-        child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                imc(),
-                icons(),
-                campos("Peso"),
-                campos("Altura"),
-                botao()
-              ],
-            )),
-      )),
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [Colors.white, Colors.orangeAccent])),
+            alignment: Alignment.topCenter,
+            child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    imc(),
+                    icons(),
+                    campos("Peso"),
+                    campos("Altura"),
+                    botao()
+                  ],
+                )),
+          )),
     );
   }
 
@@ -81,6 +83,7 @@ class _telaImcState extends State<telaImc> {
                         color: Colors.black));
               })),
       content: new Container(
+          width: double.maxFinite,
           child: StreamBuilder<dynamic>(
               stream: bloc.dadosStream,
               builder: (BuildContext context, AsyncSnapshot snap) {
@@ -167,7 +170,7 @@ class _telaImcState extends State<telaImc> {
 
   Widget botao() {
     return Container(
-        width: 300,
+        width: 320,
         child: FlatButton(
           padding: EdgeInsets.all(20.0),
           child: const Text('Calcular IMC',
@@ -191,7 +194,6 @@ class _telaImcState extends State<telaImc> {
 
   Widget textoInformacao(
       String nome, String infor, double tamanho, Alignment ali) {
-
     ///ESSE BLOCO SERVE PARA FAZER UMA ESCOLHA DE WIDGET,
     /// SE O VARIAVEL NOME FOR IGUAL AS VARIAVEIS DA OPERATIONS ABAIXO,
     /// ENTÃO FAÇA UM TIPO DE CONTAINER SE NÃO FAÇA O DEBAIXO.
@@ -205,33 +207,31 @@ class _telaImcState extends State<telaImc> {
         ? Container(
             alignment: ali,
             child: Card(
-              shadowColor: Colors.red,
+                shadowColor: Colors.red,
                 child: ExpansionTile(
-              collapsedBackgroundColor: Colors.white30,
-              title: Text(nome,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: tamanho,
-                      color: Colors.black)),
-              children: <Widget>[
-                Container(
-                  height: 10,
-                ),
-                Padding(
-                    padding: EdgeInsets.only(left: 10,right: 10),
-                    child:Text(infor,
-
-                    style: TextStyle(
-
-                        fontWeight: FontWeight.normal,
-                        fontSize: 17,
-                        color: Colors.black)) ),
-                Container(
-                  height: 15,
-                )
-              ],
-            )))
-        : Container(
+                  collapsedBackgroundColor: Colors.white30,
+                  title: Text(nome,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: tamanho,
+                          color: Colors.black)),
+                  children: <Widget>[
+                    Container(
+                      height: 10,
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        child: Text(infor,
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 17,
+                                color: Colors.black))),
+                    Container(
+                      height: 15,
+                    )
+                  ],
+                )))
+        : Container(///Outro container chamado.
             alignment: ali,
             child: Column(
               children: [
@@ -268,9 +268,14 @@ class _telaImcState extends State<telaImc> {
 
   campos(String nome) {
     return Container(
+        width: 320,
         margin: EdgeInsets.only(left: 30.0, right: 30, bottom: 20, top: 10),
         child: TextFormField(
-          inputFormatters: [nome == "Altura"?bloc.maskFormatter1:bloc.maskFormatter2],///ESCOLHA DAS MASCARAS
+          inputFormatters: [
+            nome == "Altura" ? bloc.maskFormatter1 : bloc.maskFormatter2   ///ESCOLHA DAS MASCARAS
+          ],
+
+
           keyboardType: TextInputType.number,
           validator: (value) {
             if (value.isEmpty) {

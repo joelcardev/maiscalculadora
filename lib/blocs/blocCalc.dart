@@ -8,11 +8,9 @@ import 'package:rxdart/rxdart.dart';
 class blocCalc extends BlocBase {
   static const operations = const ['√', '%', '/', '+', '-', 'x', '='];
 
-  String _tela1 = "";
-  String _tela2;
+  String _tela1 = "";///tela que aparece os numeros digitados.
+  String _tela2;/// tela que aparece o resultado da expressão.
   int posV = 0;
-
-  bool isOpe = false;
 
 
   ///BLOCS QUE FAZEM O CONTROLE, UM DOS DIGITOS DA EXPRESSÃO E OUTRO DO RESULTADO DA MESMA.
@@ -22,7 +20,6 @@ class blocCalc extends BlocBase {
 
   Stream<String> get tela1Stream => _blocController1.stream;
   Stream<String> get tela2Stream => _blocController2.stream;
-
 
   ///FUNÇÃO QUE QUANDO ACIONADA PEGA O NOME DO BOTÃO "COMMAND" E ACIONA OUTRAS FUNÇÕES.
   void applyCommand(String command) {
@@ -38,43 +35,41 @@ class blocCalc extends BlocBase {
     }
   }
 
-
   ///Deleta o ultimo digito da tela.
   void deleteEndDigit() {
+    int ct = 0;
     _tela1 = _tela1.length > 1 ? _tela1.substring(0, _tela1.length - 1) : '';
+
     _blocController1.sink.add(_tela1);
   }
 
-
   ///função principal que calcula a expressão da variavel tela1;
   void calcular() {
-
     /// catch que pega qualquer erro de expressão digitada, qualquer expressão que não é calculada será ERROR.
-    try {
-      String res = _tela1;
+    if (_tela1.isNotEmpty) {
+      try {
+        String res = _tela1;
 
-      res = res.replaceAll("x", "*");
-      res = res.replaceAll("%", "/100");
+        res = res.replaceAll("x", "*");
+        res = res.replaceAll("%", "/100");
 
-      Parser p = Parser();
-      Expression exp = p.parse(res);
-      ContextModel cm = ContextModel();
-      double vl = exp.evaluate(EvaluationType.REAL, cm);
+        Parser p = Parser();
+        Expression exp = p.parse(res);
+        ContextModel cm = ContextModel();
+        double vl = exp.evaluate(EvaluationType.REAL, cm);
 
-      _tela2 = vl.toStringAsFixed(2).toString();
+        _tela2 = vl.toStringAsFixed(1).toString();
 
-      _blocController2.sink.add(_tela2);
-    } catch (e) {
-      _blocController2.sink.add("Error...");
+        _blocController2.sink.add(_tela2);
+      } catch (e) {
+        _blocController2.sink.add("Error...");
+      }
     }
   }
-
 
   ///FUNÇAO QUE ADICIONA DIGITOS NA VARIAVEL TELA1
 
   void addDigit(String bt) {
-
-
     if (operations.contains(bt)) {
 
       ///TRES IFS QUE IMPEDEM ERROS, EXEMPLO: SE ALGUEM COLOCAR PRIMEIRO * SEM UMA INTERVENÇÃO, PODE PROVOCAR ERRO, ENTÃO SE COLOCA 0 * O ERRO É IMPEDIDO.
@@ -90,6 +85,7 @@ class blocCalc extends BlocBase {
         _tela1 = "-";
         _blocController1.sink.add(_tela1);
       }
+
 
       ///
       if (bt == _tela1[_tela1.length - 1]) {
